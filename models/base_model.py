@@ -29,12 +29,10 @@ class BaseModel:
         models.storage.save()
 
     def to_dict(self):
-        dicto = {'my_number': self.my_number,
-                 'name': self.name,
-                 '__class__': self.__class__.__name__,
-                 'updated_at': self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f"),
-                 'id': self.id,
-                 'created_at': self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")}
+        dicto = self.__dict__.copy()
+        dicto['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        dicto['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
+        dicto['__class__'] = self.__class__.__name__
         return dicto
 
     def __str__(self):
