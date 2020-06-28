@@ -12,10 +12,10 @@ class FileStorage:
     def __init__(self):
         """[summary]
                 """
-
+ 
     def all(self):
         return FileStorage.__objects
-
+        
     def new(self, obj):
         key = "{}.{}".format(obj.__class__.__name__, obj.id)
         FileStorage.__objects[key] = obj
