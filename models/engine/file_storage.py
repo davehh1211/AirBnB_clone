@@ -3,6 +3,12 @@
 import json
 import os
 from models.base_model import BaseModel
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class FileStorage:
@@ -32,6 +38,7 @@ class FileStorage:
             with open(FileStorage.__file_path, mode="r", encoding="UTF8") as jsonfile:
                 dict_jsonfile = json.load(jsonfile)
             for key, value in dict_jsonfile.items():
-                FileStorage.__objects[key] = BaseModel(**value)
+                obj = key.split(".")
+                FileStorage.__objects[key] = eval(obj[0])(**value)
         except Exception:
             pass
