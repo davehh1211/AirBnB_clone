@@ -5,7 +5,12 @@ import cmd
 import models
 from models.base_model import BaseModel
 from models import storage
-
+from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
@@ -20,7 +25,7 @@ class HBNBCommand(cmd.Cmd):
         """ quit documentation """
         print("Quit command to exit the program")
 
-    def do_EOF(self, line):  # cucho, este es para cuando se salga con control+d no tire error
+    def do_EOF(self, line):
         """ ctr+D signal handler """
         print("")
         return True
@@ -30,14 +35,16 @@ class HBNBCommand(cmd.Cmd):
         print("Handle the ctr+D signal to avoid errors")
 
     def do_create(self, line):
-        if len(line) <= 0:
+        args = line.split()
+        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        if len(args) <= 0:
             print("** class name missing **")
-        elif line not in ["BaseModel"]:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         else:
-            base_obj = BaseModel()
-            print(base_obj.id)
-            base_obj.save()
+            obj = eval(args[0])()
+            print(obj.id)
+            obj.save()
 
     def help_create(self):
         """ EOF documentation """
@@ -47,9 +54,10 @@ class HBNBCommand(cmd.Cmd):
         args = []
         args = line.split()
         objects = storage.all()
+        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel"]:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         elif len(args) <= 1:
             print("** instance id missing **")
@@ -66,14 +74,16 @@ class HBNBCommand(cmd.Cmd):
         args = line.split()
         args = line.split()
         objects = storage.all()
+        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel"]:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         elif len(args) <= 1:
             print("** instance id missing **")
         elif args[0]+'.'+args[1] in objects:
             del objects[args[0]+'.'+args[1]]
+            storage.save()
         else:
             print("** no instance found **")
 
@@ -81,20 +91,25 @@ class HBNBCommand(cmd.Cmd):
         objs = []
         args = line.split()
         objects = storage.all()
-        if len(args) <= 0 or args[0] not in ["BaseModel"]:
+        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        if len(args) <= 0 or args[0] not in classes:
             print("** class doesn't exist **")
         else:
-            for key in objects:
-                objs.append(objects[key].__str__())
+            keys = objects.keys()
+            for key in keys:
+                class_name = key.split(".")
+                if class_name[0] == args[0]:
+                    objs.append(objects[key].__str__())
             print(objs)
 
     def do_update(self, line):
         args = []
         args = shlex.split(line)
         objects = storage.all()
+        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] not in ["BaseModel"]:
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         elif len(args) == 1:
             print("** instance id missing **")
