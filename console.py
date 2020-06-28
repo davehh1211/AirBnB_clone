@@ -107,7 +107,6 @@ class HBNBCommand(cmd.Cmd):
         else:
             obj = objects.get(args[0]+"."+args[1])
             setattr(obj, args[2], args[3])
-           # FileStorage.__objects[key] = BaseModel(**value)
             obj.save()
 
     def emptyline(self):
