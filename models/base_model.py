@@ -44,5 +44,7 @@ class BaseModel:
 
     def __str__(self):
         """print representation of the id of an instance"""
+        obj_dict = self.__dict__
+        obj_dict.pop("__class__")
         return ("[{}] ({}) {}".format(
-            self.__class__.__name__, self.id, str(self.__dict__)))
+            self.__class__.__name__, self.id, str(obj_dict)))
