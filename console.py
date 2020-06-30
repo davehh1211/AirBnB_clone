@@ -160,8 +160,7 @@ class HBNBCommand(cmd.Cmd):
 
     def precmd(self, line):
         """ search the command and executes it
-                """
-
+        """
         if re.search(r'\(', line) is None:
             return line
         if re.search(r'\)', line) is None:
@@ -179,7 +178,6 @@ class HBNBCommand(cmd.Cmd):
             line = line.replace(", ", " ")
         if re.search(r'\,', line):
             line = line.replace(",", " ")
-        print(line)
         return line
 
 
