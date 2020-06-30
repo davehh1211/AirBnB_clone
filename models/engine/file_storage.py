@@ -35,13 +35,15 @@ class FileStorage:
         dict_jsonfile = {}
         for key, value in FileStorage.__objects.items():
             dict_jsonfile[key] = value.to_dict()
-        with open(FileStorage.__file_path, mode="w", encoding="UTF8") as jsonfile:
+        with open(FileStorage.__file_path, mode="w",
+                  encoding="UTF8") as jsonfile:
             json.dump(dict_jsonfile, jsonfile)
 
     def reload(self):
         """deserializes the JSON file to a dictionary"""
         try:
-            with open(FileStorage.__file_path, mode="r", encoding="UTF8") as jsonfile:
+            with open(FileStorage.__file_path, mode="r",
+                      encoding="UTF8") as jsonfile:
                 dict_jsonfile = json.load(jsonfile)
             for key, value in dict_jsonfile.items():
                 obj = key.split(".")
