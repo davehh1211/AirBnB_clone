@@ -78,7 +78,9 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) <= 1:
             print("** instance id missing **")
         elif objects.get(args[0]+"."+args[1]) is not None:
-            print(objects.get(args[0]+"."+args[1]))
+            objs = objects.get(args[0]+"."+args[1])
+            objs.pop("__class__")
+            print(objs)
         else:
             print("** no instance found **")
 
@@ -89,7 +91,6 @@ class HBNBCommand(cmd.Cmd):
     def do_destroy(self, line):
         """Deletes an instance based on the class name and id
         """
-        args = line.split()
         args = line.split()
         objects = storage.all()
         classes = ["BaseModel", "Amenity", "City",
@@ -179,6 +180,19 @@ class HBNBCommand(cmd.Cmd):
         if re.search(r'\,', line):
             line = line.replace(",", " ")
         return line
+
+    def do_count(self, line):
+        """counts the number of instances"""
+        count = 0
+        args = []
+        args = line.split()
+        instances = storage.all()
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
+        for key in instances:
+            if key.split(".")[0] == args[0]:
+                count += 1
+        print(count)
 
 
 if __name__ == '__main__':
