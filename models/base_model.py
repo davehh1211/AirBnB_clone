@@ -1,16 +1,17 @@
 #!/usr/bin/python3
+"""Module Base of instanciation of a class
 """
-    """
 from datetime import datetime
 import uuid
 import models
 
 
 class BaseModel:
-    """[summary]
+    """defines all common attributes/methods for other classes
     """
 
     def __init__(self, *args, **kwargs):
+        """initialization of base model"""
         if kwargs or len(kwargs) != 0:
             for key, value in kwargs.items():
                 if key == "id":
@@ -27,10 +28,14 @@ class BaseModel:
             models.storage.new(self)
 
     def save(self):
+        """class that saves instance attribute to a json file"""
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
+        """creates a dictionary containing
+        all keys and values
+        """
         dicto = self.__dict__.copy()
         dicto['created_at'] = self.created_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
         dicto['updated_at'] = self.updated_at.strftime("%Y-%m-%dT%H:%M:%S.%f")
@@ -38,5 +43,6 @@ class BaseModel:
         return dicto
 
     def __str__(self):
+        """print representation of the id of an instance"""
         return ("[{}] ({}) {}".format(
             self.__class__.__name__, self.id, str(self.__dict__)))
