@@ -3,6 +3,7 @@
 import shlex
 import cmd
 import models
+import re
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -130,6 +131,27 @@ class HBNBCommand(cmd.Cmd):
         """
         pass
 
+    def precmd(self, line):
+        
+        if re.search(r'\(', line) is None:
+            return line
+        if re.search(r'\)', line) is None:
+            return line
+        line = line.replace('(', " ")
+        line = line.replace(')', " ")
+        if re.search(r'\.', line):
+            line = line.replace('.', " ")
+            line = line.split(" ")
+            tmp = line[0]
+            line[0] = line[1]
+            line[1] = tmp
+            line = " ".join(line)
+        if re.search(r'\,', line):
+            line = line.replace(", ", " ")
+        if re.search(r'\,', line):
+            line = line.replace(",", " ")
+        print(line)
+        return line
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
