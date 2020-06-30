@@ -60,7 +60,7 @@ class HBNBCommand(cmd.Cmd):
             obj.save()
 
     def help_create(self):
-        """ EOF documentation """
+        """ create documentation """
         print("Handle the ctr+D signal to avoid errors")
 
     def do_show(self, line):
@@ -83,7 +83,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def help_show(self):
-        """ EOF documentation """
+        """ show documentation """
         print("Handle the ctr+D signal to avoid errors")
 
     def do_destroy(self, line):
@@ -105,6 +105,10 @@ class HBNBCommand(cmd.Cmd):
         else:
             print("** no instance found **")
 
+    def help_destroy(self):
+        """ destroy documentation """
+        print("Destroy an instance")
+
     def do_all(self, line):
         """Prints all string representation of
         all instances based or not on the class name.
@@ -124,6 +128,10 @@ class HBNBCommand(cmd.Cmd):
                     objs.append(objects[key].__str__())
                 if len(objs) > 0:
                     print(objs)
+
+    def help_all(self):
+        """ all documentation """
+        print("Display all the instances from a class")
 
     def do_update(self, line):
         """Updates an instance based on the class
@@ -152,6 +160,27 @@ class HBNBCommand(cmd.Cmd):
             setattr(obj, args[2], args[3])
             obj.save()
 
+    def help_update(self):
+        """ update documentation """
+        print("Update an object from a class")
+
+    def do_count(self, line):
+        """counts the number of instances"""
+        count = 0
+        args = []
+        args = line.split()
+        instances = storage.all()
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
+        for key in instances:
+            if key.split(".")[0] == args[0]:
+                count += 1
+        print(count)
+
+    def help_count(self):
+        """ count documentation """
+        print("Count the instances number of a class")
+
     def emptyline(self):
         """ show the prompt when an empty line typed in
         it avoid repeats the last nonempty command entered
@@ -179,19 +208,6 @@ class HBNBCommand(cmd.Cmd):
         if re.search(r'\,', line):
             line = line.replace(",", " ")
         return line
-
-    def do_count(self, line):
-        """counts the number of instances"""
-        count = 0
-        args = []
-        args = line.split()
-        instances = storage.all()
-        classes = ["BaseModel", "Amenity", "City",
-                   "Place", "Review", "State", "User"]
-        for key in instances:
-            if key.split(".")[0] == args[0]:
-                count += 1
-        print(count)
 
 
 if __name__ == '__main__':
