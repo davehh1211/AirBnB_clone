@@ -124,7 +124,8 @@ class HBNBCommand(cmd.Cmd):
                 class_name = key.split(".")
                 if class_name[0] == args[0]:
                     objs.append(objects[key].__str__())
-            print(objs)
+            if len(objs) != 0:
+                print(objs)
 
     def do_update(self, line):
         """Updates an instance based on the class
