@@ -118,7 +118,13 @@ class HBNBCommand(cmd.Cmd):
         objects = storage.all()
         classes = ["BaseModel", "Amenity", "City",
                    "Place", "Review", "State", "User"]
-        if len(args) <= 0 or args[0] not in classes:
+        if len(args) <= 0:
+            for key in objects:
+                print(key)
+                objs.append(objects[key].__str__())
+            if len(objs) > 0:
+                print(objs)
+        elif args[0] not in classes:
             print("** class doesn't exist **")
         else:
             keys = objects.keys()
