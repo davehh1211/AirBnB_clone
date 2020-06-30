@@ -1,5 +1,6 @@
 #!/usr/bin/python3
-
+"""Console module
+"""
 import shlex
 import cmd
 import models
@@ -15,6 +16,15 @@ from models.review import Review
 
 
 class HBNBCommand(cmd.Cmd):
+    """This console  that contains the entry
+    point of the command interpreter:
+
+    Args:
+        cmd ([commandline]): [it receives the command]
+
+    Returns:
+        [True, False]: [depends on the outcome]
+    """
 
     prompt = '(hbnb) '
 
@@ -36,8 +46,10 @@ class HBNBCommand(cmd.Cmd):
         print("Handle the ctr+D signal to avoid errors")
 
     def do_create(self, line):
+        """create and instance and saves to json file"""
         args = line.split()
-        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
         if len(args) <= 0:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -52,10 +64,13 @@ class HBNBCommand(cmd.Cmd):
         print("Handle the ctr+D signal to avoid errors")
 
     def do_show(self, line):
+        """shows an instance based on the class name and id
+        """
         args = []
         args = line.split()
         objects = storage.all()
-        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -70,12 +85,15 @@ class HBNBCommand(cmd.Cmd):
     def help_show(self):
         """ EOF documentation """
         print("Handle the ctr+D signal to avoid errors")
-    
+
     def do_destroy(self, line):
+        """Deletes an instance based on the class name and id
+        """
         args = line.split()
         args = line.split()
         objects = storage.all()
-        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -89,10 +107,14 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, line):
+        """Prints all string representation of
+        all instances based or not on the class name.
+        """
         objs = []
         args = line.split()
         objects = storage.all()
-        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
         if len(args) <= 0 or args[0] not in classes:
             print("** class doesn't exist **")
         else:
@@ -104,10 +126,15 @@ class HBNBCommand(cmd.Cmd):
             print(objs)
 
     def do_update(self, line):
+        """Updates an instance based on the class
+        name and id by adding or updating attribute
+        (save the change into the JSON file)
+        """
         args = []
         args = shlex.split(line)
         objects = storage.all()
-        classes = ["BaseModel", "Amenity", "City", "Place", "Review", "State", "User"]
+        classes = ["BaseModel", "Amenity", "City",
+                   "Place", "Review", "State", "User"]
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] not in classes:
@@ -132,7 +159,9 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def precmd(self, line):
-        
+        """ search the command and executes it
+                """
+
         if re.search(r'\(', line) is None:
             return line
         if re.search(r'\)', line) is None:
@@ -152,6 +181,7 @@ class HBNBCommand(cmd.Cmd):
             line = line.replace(",", " ")
         print(line)
         return line
+
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
