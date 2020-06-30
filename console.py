@@ -78,8 +78,9 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) <= 1:
             print("** instance id missing **")
         elif objects.get(args[0]+"."+args[1]) is not None:
-            obj = objects.get(args[0]+"."+args[1])
-            print(self.prepare_to_show(obj))
+            objs = objects.get(args[0]+"."+args[1])
+            objs.pop("__class__")
+            print(objs)
         else:
             print("** no instance found **")
 
@@ -122,19 +123,8 @@ class HBNBCommand(cmd.Cmd):
             for key in keys:
                 class_name = key.split(".")
                 if class_name[0] == args[0]:
-                    objs.append(self.prepare_to_show(objects[key]))
+                    objs.append(objects[key].__str__())
             print(objs)
-
-    def prepare_to_show(self, obj):
-        """ prepare the string representation of an instance to
-        show on the screen
-        """
-        name = obj.__class__.__name__
-        id = obj.id
-        obj_dict = obj.__dict__.copy()
-        obj_dict.pop("__class__")
-        obj_dict = str(obj_dict)
-        return ("[{}] ({}) {}".format(name, id, obj_dict))
 
     def do_update(self, line):
         """Updates an instance based on the class
