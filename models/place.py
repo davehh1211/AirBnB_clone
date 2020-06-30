@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-
+"""module for place"""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
+    """the class which gives the info about a place"""
     city_id = ""
     user_id = ""
     name = ""
@@ -17,4 +18,5 @@ class Place(BaseModel):
     amenity_ids = []
 
     def __init__(self, *args, **kwargs):
+        """initialization"""
         super().__init__(*args, **kwargs)
