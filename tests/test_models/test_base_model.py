@@ -111,5 +111,13 @@ class TestBaseModel(unittest.TestCase):
     def test_base_pep8_conformance_base_modeltest(self):
         """Test that we conform to PEP8."""
         pep8style = pep8.StyleGuide(quiet=True)
-        result = pep8style.check_files(['/tests_models/test_base_model.py'])
-        self.assertEqual(result.total_errors, 1)
+        result = pep8style.check_files(
+            ['./tests/test_models/test_base_model.py'])
+        self.assertEqual(result.total_errors, 0)
+
+    def test_docstring(self):
+        """test docstring in the file"""
+        self.assertIsNotNone(BaseModel.__doc__)
+        self.assertIsNotNone(BaseModel.save.__doc__)
+        self.assertIsNotNone(BaseModel.to_dict.__doc__)
+        self.assertIsNotNone(BaseModel.__str__.__doc__)

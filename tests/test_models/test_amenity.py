@@ -57,3 +57,15 @@ class TestAmenity(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['./models/amenity.py'])
         self.assertEqual(result.total_errors, 0)
+
+    def test_amenity_docstring(self):
+        """test docstring"""
+        self.assertIsNot(Amenity.__doc__, None,
+                         "amenity.py needs a docstring")
+        self.assertTrue(len(Amenity.__doc__) >= 1,
+                        "amenity.py needs a docstring")
+
+    def test_docstring(self):
+        """test docstring in the file"""
+        self.assertIsNotNone(Amenity.__doc__)
+        self.assertIsNotNone(Amenity.name.__doc__)

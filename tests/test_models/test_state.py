@@ -57,3 +57,8 @@ class TestState(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['./models/state.py'])
         self.assertEqual(result.total_errors, 0)
+
+    def test_docstring_state(self):
+        """test docstring in the file"""
+        self.assertIsNotNone(State.__doc__)
+        self.assertIsNotNone(State.name.__doc__)
