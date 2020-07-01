@@ -66,3 +66,8 @@ class TestUser(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['./models/user.py'])
         self.assertEqual(result.total_errors, 0)
+
+    def test_docstring(self):
+        """test docstring in the file"""
+        self.assertIsNotNone(User.__doc__)
+        self.assertIsNotNone(User.password.__doc__)

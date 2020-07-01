@@ -65,3 +65,8 @@ class TestCity(unittest.TestCase):
         pep8style = pep8.StyleGuide(quiet=True)
         result = pep8style.check_files(['./models/city.py'])
         self.assertEqual(result.total_errors, 0)
+
+    def test_docstring(self):
+        """test docstring in the file"""
+        self.assertIsNotNone(City.__doc__)
+        self.assertIsNotNone(City.name.__doc__)
