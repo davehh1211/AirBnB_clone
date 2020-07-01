@@ -196,12 +196,40 @@ class HBNBCommand(cmd.Cmd):
     def precmd(self, line):
         """ search the command and executes it
         """
+        line = line.strip()
         if re.search(r'\(', line) is None:
             return line
         if re.search(r'\)', line) is None:
             return line
         line = line.replace('(', " ")
         line = line.replace(')', " ")
+        if re.search(r'\{', line) and re.search(r'\}', line):
+            limiter = line.find('{')
+            return self.prepare_dict(line[0:limiter], line[limiter:])
+        else:
+            return self.prepare_line(line)
+
+    def prepare_dict(self, line, dic):
+        """ prepare a string to update an instance usign dictionaries """
+        if re.search(r'\.', line):
+            args = line.replace('.', " ")
+            args = args.split(" ")
+            tmp = args[0]
+            args[0] = args[1]
+            args[1] = tmp
+            print(args)
+        keys = dic.keys()
+        for key in keys:
+            value = dic[key]
+            new_line = "{} {} {} {}".format(
+                args[1], args[2], str(key), str(value))
+            if re.search(r'\,', new_line):
+                new_line = new_line.replace(",", "")
+            eval("self.do_"+args[0])(new_line)
+        return ""
+
+    def prepare_line(self, line):
+        """ prepare the string to return an interpretable command line """
         if re.search(r'\.', line):
             line = line.replace('.', " ")
             line = line.split(" ")
@@ -213,6 +241,7 @@ class HBNBCommand(cmd.Cmd):
             line = line.replace(", ", " ")
         if re.search(r'\,', line):
             line = line.replace(",", " ")
+        print(line)
         return line
 
 
