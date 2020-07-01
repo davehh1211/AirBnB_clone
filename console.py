@@ -207,17 +207,21 @@ class HBNBCommand(cmd.Cmd):
             limiter = line.find('{')
             return self.prepare_dict(line[0:limiter], line[limiter:])
         else:
+            if re.search(r'\"', line):
+                line = line.replace('\"', "")
             return self.prepare_line(line)
 
     def prepare_dict(self, line, dic):
         """ prepare a string to update an instance usign dictionaries """
+        dic = eval(dic)
+        if re.search(r'\"', line):
+            line = line.replace('\"', "")
         if re.search(r'\.', line):
             args = line.replace('.', " ")
             args = args.split(" ")
             tmp = args[0]
             args[0] = args[1]
             args[1] = tmp
-            print(args)
         keys = dic.keys()
         for key in keys:
             value = dic[key]
@@ -241,7 +245,6 @@ class HBNBCommand(cmd.Cmd):
             line = line.replace(", ", " ")
         if re.search(r'\,', line):
             line = line.replace(",", " ")
-        print(line)
         return line
 
 
