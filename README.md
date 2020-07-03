@@ -1,4 +1,4 @@
-![Alt text](https://holbertonintranet.s3.amazonaws.com/uploads/medias/2018/6/65f4a1dd9c51265f49d0.png?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIARDDGGGOUWMNL5ANN%2F20200701%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20200701T211105Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=344f3f1cbce4f76d6fb49b34346708c7199098a3c0736af59316711e79bb59e2)
+![Alt text](https://raw.githubusercontent.com/angellovc/AirBnB_clone/master/ahlb.png)
 
 # AirBnB Clone Project - Console
 
