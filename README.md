@@ -192,4 +192,8 @@ d23f5b6c-a3e7-4e01-942b-7a51056df50d
 
 - [GitHub - Angello Villegas](https://github.com/angellovc)
 
+<<<<<<< HEAD
 - [GitHub - Oscar David Henao Hidalgo](https://github.com/davehh1211)
+=======
+- [GitHub - Oscar David Henao Hidalgo](https://github.com/davehh1211)
+>>>>>>> 36e4d7286fee81fd10949130b5ee75f7ce144178
